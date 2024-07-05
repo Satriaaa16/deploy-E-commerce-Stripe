@@ -3,6 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+import { loadStripe } from '@stripe/stripe-js';
+
+
+// Pilih kunci API yang sesuai berdasarkan mode
+const stripePromise = loadStripe(
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY_LIVE
+    : process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY_TEST
+);
+
+if (process.env.NODE_ENV === 'production') disableReactDevTools()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
